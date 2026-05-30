@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Dev-Detective — Search GitHub profiles, compare developers, and explore repositories with a beautiful dark UI." />
+  <title>Dev-Detective | GitHub Profile Explorer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- ═══════════════ BACKGROUND PARTICLES ═══════════════ -->
+  <div class="bg-particles" aria-hidden="true">
+    <div class="particle p1"></div>
+    <div class="particle p2"></div>
+    <div class="particle p3"></div>
+    <div class="particle p4"></div>
+    <div class="particle p5"></div>
+    <div class="particle p6"></div>
+  </div>
+
+  <!-- ═══════════════ HEADER ═══════════════ -->
+  <header id="app-header" class="app-header">
+    <div class="header-inner">
+      <div class="logo" id="logo">
+        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <h1>Dev<span class="accent">Detective</span></h1>
+      </div>
+      <div class="mode-toggle-wrapper">
+        <button id="mode-toggle-btn" class="mode-toggle-btn" aria-label="Toggle Battle Mode" title="Toggle Battle Mode">
+          <svg class="icon-single" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <svg class="icon-battle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          <span class="toggle-label" id="toggle-label">Battle Mode</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════ MAIN CONTENT ═══════════════ -->
+  <main id="main-content" class="main-content">
+
+    <!-- ── SINGLE SEARCH MODE ── -->
+    <section id="single-search-section" class="search-section active">
+      <div class="search-container glass-card">
+        <div class="search-heading">
+          <h2>Find a Developer</h2>
+          <p class="search-subtitle">Enter a GitHub username to explore their profile</p>
+        </div>
+        <form id="search-form" class="search-form" autocomplete="off">
+          <div class="input-wrapper">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input
+              type="text"
+              id="search-input"
+              class="search-input"
+              placeholder="e.g. octocat"
+              required
+            />
+            <button type="submit" id="search-btn" class="search-btn">
+              <span class="btn-text">Search</span>
+              <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Results Area -->
+      <div id="result-area" class="result-area"></div>
+    </section>
+
+    <!-- ── BATTLE MODE SECTION ── -->
+    <section id="battle-search-section" class="search-section">
+      <div class="search-container glass-card battle-search">
+        <div class="search-heading">
+          <h2>⚔️ Battle Mode</h2>
+          <p class="search-subtitle">Compare two developers head-to-head by total GitHub stars</p>
+        </div>
+        <form id="battle-form" class="battle-form" autocomplete="off">
+          <div class="battle-inputs">
+            <div class="input-wrapper battle-input-wrap">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+              <input
+                type="text"
+                id="battle-input-1"
+                class="search-input"
+                placeholder="Player 1 (e.g. torvalds)"
+                required
+              />
+            </div>
+            <span class="vs-badge">VS</span>
+            <div class="input-wrapper battle-input-wrap">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+              <input
+                type="text"
+                id="battle-input-2"
+                class="search-input"
+                placeholder="Player 2 (e.g. gaearon)"
+                required
+              />
+            </div>
+          </div>
+          <button type="submit" id="battle-btn" class="search-btn battle-btn">
+            <span class="btn-text">⚔️ Start Battle</span>
+            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- Battle Results Area -->
+      <div id="battle-result-area" class="battle-result-area"></div>
+    </section>
+  </main>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer id="app-footer" class="app-footer">
+    <p>Built with <span class="heart">♥</span> using the <a href="https://docs.github.com/en/rest" target="_blank" rel="noopener">GitHub REST API</a></p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
